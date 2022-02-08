@@ -21,7 +21,7 @@
 
 // Reader defines
 
-#define WIEGANDTYPE_KEYPRESS 4
+#define WIEGANDTYPE_KEYPRESS 8
 #define WIEGANDTYPE_PICC26 26
 #define WIEGANDTYPE_PICC34 34
 
@@ -35,3 +35,6 @@
 
 #define LOCKTYPE_MOMENTARY 0
 #define LOCKTYPE_CONTINUOUS 1
+
+#define LEDTYPE 0
+

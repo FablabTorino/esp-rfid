@@ -82,6 +82,26 @@ bool ICACHE_FLASH_ATTR loadConfiguration()
 		}
 	}
 
+	if (hardware.containsKey("beeperpin"))
+	{
+		beeperpin = hardware["beeperpin"];
+		if (beeperpin != 255)
+		{
+			pinMode(beeperpin, OUTPUT);
+			digitalWrite(beeperpin, HIGH);
+		}
+	}
+
+	if (hardware.containsKey("ledwaitingpin"))
+	{
+		ledwaitingpin = hardware["ledwaitingpin"];
+		if (ledwaitingpin != 255)
+		{
+			pinMode(ledwaitingpin, OUTPUT);
+			digitalWrite(ledwaitingpin, HIGH);
+		}
+	}
+
 	if (hardware.containsKey("openlockpin"))
 	{
 		openlockpin = hardware["openlockpin"];
@@ -133,6 +153,7 @@ bool ICACHE_FLASH_ATTR loadConfiguration()
 		Serial.begin(9600);
 #endif
 #endif
+	fallbackMode = network["fallbackmode"];
 	autoRestartIntervalSeconds = general["restart"];
 	wifiTimeout = network["offtime"];
 	const char *bssidmac = network["bssid"];

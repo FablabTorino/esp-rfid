@@ -39,7 +39,7 @@ SOFTWARE.
 #include <Bounce2.h>
 #include "magicnumbers.h"
 
-// #define DEBUG
+#define DEBUG
 
 int numRelays = 1;
 
@@ -123,7 +123,11 @@ uint8_t doorbellpin = 255;
 uint8_t lastDoorbellState = 0;
 
 uint8_t accessdeniedpin = 255;
+uint8_t beeperpin = 255;
+uint8_t ledwaitingpin = 255;
+
 unsigned long accessdeniedOffTime = 0;
+unsigned long beeperOffTime = 0;
 
 uint8_t lastTamperState = 0;
 
@@ -139,6 +143,7 @@ unsigned long previousLoopMillis = 0;
 unsigned long currentMillis = 0;
 unsigned long cooldown = 0;
 unsigned long keyTimer = 0;
+unsigned long beeperTimer = 0;
 bool pinCodeRequested;
 unsigned long deltaTime = 0;
 unsigned long uptime = 0;
@@ -152,6 +157,7 @@ bool doDisableWifi = false;
 bool doEnableWifi = false;
 bool timerequest = false;
 bool formatreq = false;
+bool fallbackMode = false;
 unsigned long wifiTimeout = 0;
 unsigned long wiFiUptimeMillis = 0;
 char *deviceHostname = NULL;
@@ -173,6 +179,8 @@ unsigned long interval = 180; // Add to GUI & json config
 bool mqttEvents = false;	  // Sends events over MQTT disables SPIFFS file logging
 
 bool mqttHA = false; // Sends events over simple MQTT topics and AutoDiscovery
+
+char mqttBuffer[1460];
 
 #include "log.esp"
 #include "mqtt.esp"
@@ -244,8 +252,13 @@ void ICACHE_FLASH_ATTR setup()
 	configMode = loadConfiguration();
 	if (!configMode)
 	{
+		if (!fallbackMode)
+		{
 		fallbacktoAPMode();
 		configMode = false;
+		}else{
+		configMode = true;	
+		}
 	}
 	else
 	{
@@ -314,6 +327,11 @@ void ICACHE_RAM_ATTR loop()
 	if (accessdeniedpin != 255 && digitalRead(accessdeniedpin) == HIGH && currentMillis > accessdeniedOffTime)
 	{
 		digitalWrite(accessdeniedpin, LOW);
+	}
+
+	if (beeperpin != 255 && digitalRead(beeperpin) == LOW && currentMillis > beeperOffTime)
+	{
+		digitalWrite(beeperpin, HIGH);
 	}
 
 	if (doorstatpin != 255)

@@ -10,16 +10,16 @@ void ICACHE_FLASH_ATTR wiegandRead()
 	{
 #ifdef DEBUG
 		Serial.print(F("[ INFO ] PICC's UID: "));
-		Serial.println(wg.getCode());
+		Serial.println(wg.getCode(), HEX);
 #endif
-		uid = String(wg.getCode(), DEC);
+		uid = String(wg.getCode(), HEX);
 		type = String(wg.getWiegandType(), DEC);
 		cooldown = millis() + 2000;
 	}
 	// if we get a 4 bit burst then a key has been pressed
 	// add the key to the current input and reset the Waiting time
 	// for the next key unless * or # have been pressed
-	// we do not require * as the first character because some
+	// we do not require * as the first character because some0
 	// readers use this as special admin code and would hence require *#PIN#
 	if (wg.getWiegandType() == WIEGANDTYPE_KEYPRESS /*  && keyTimer > 0 */ && String(wg.getCode(), HEX) != "d" && String(wg.getCode(), HEX) != "1b")
 	{
@@ -122,6 +122,7 @@ void ICACHE_FLASH_ATTR rfidloop()
 		}
 		if (keyTimer > 0) // we are still waiting for keycode to build up
 		{
+			
 #ifdef DEBUG
 			Serial.println("[ INFO ] still waiting for keypress!!");
 #endif
@@ -129,6 +130,9 @@ void ICACHE_FLASH_ATTR rfidloop()
 		}
 		// We need to wait for the pin code after a card is read
 		if (pinCodeRequested && pinCode == "") {
+			if(ledwaitingpin != 255){
+			digitalWrite(ledwaitingpin, LOW);
+			}
 			return;
 		}
 	}
@@ -302,6 +306,11 @@ void ICACHE_FLASH_ATTR rfidloop()
 					{
 						mqtt_publish_access(now(), "true", "Wrong pin code", username, uid);
 					}
+					//if (beeperpin != 255)
+					//{
+					//	beeperOffTime = currentMillis + 5000;
+				//		digitalWrite(beeperpin, LOW);
+				//	}
 				}
 
 #ifdef DEBUG
@@ -330,6 +339,12 @@ void ICACHE_FLASH_ATTR rfidloop()
 						{
 							mqtt_publish_access(now(), "true", "Always", username, uid);
 						}
+						
+						if (beeperpin != 255)
+						{
+						beeperOffTime = currentMillis + 3000;
+						digitalWrite(beeperpin, LOW);
+						}
 					}
 
 					else
@@ -355,6 +370,15 @@ void ICACHE_FLASH_ATTR rfidloop()
 					{
 						mqtt_publish_access(now(), "true", "Admin", username, uid);
 					}
+
+					if (beeperpin != 255) {
+						beeperOffTime = currentMillis + 3000;
+						digitalWrite(beeperpin, LOW);
+					}
+		
+					if (ledwaitingpin !=255) {
+						digitalWrite(ledwaitingpin, HIGH);			
+					}	
 				}
 				else
 				{
@@ -370,6 +394,33 @@ void ICACHE_FLASH_ATTR rfidloop()
 						accessdeniedOffTime = currentMillis + 1000;
 						digitalWrite(accessdeniedpin, HIGH);
 					}
+					
+					if (ledwaitingpin !=255) {
+						digitalWrite(ledwaitingpin, HIGH);			
+					}					
+					if (beeperpin != 255) {
+					    beeperOffTime = currentMillis + 5000 ;
+
+						const long interval = 500; 
+						unsigned long previousMillis = 0;
+	 					int beeperState = HIGH; 
+							if (currentMillis - previousMillis >= interval) {
+   								// save the last time you blinked the LED
+    							previousMillis = currentMillis;
+
+    							// if the LED is off turn it on and vice-versa:
+					    		if (beeperState == HIGH) {
+      								beeperState = LOW;
+    							} else {
+      								beeperState = HIGH;
+    							}
+
+    							// set the LED with the ledState of the variable:
+    							digitalWrite(beeperpin, beeperState);
+  							}	
+						
+					}
+						
 				}
 				writeLatest(uid, username, AccType);
 				DynamicJsonDocument root(512);
@@ -424,6 +475,15 @@ void ICACHE_FLASH_ATTR rfidloop()
 			accessdeniedOffTime = currentMillis + 1000;
 			digitalWrite(accessdeniedpin, HIGH);
 		}
+		
+		if (ledwaitingpin !=255) {
+			digitalWrite(ledwaitingpin, HIGH);			
+		}
+		//if (beeperpin != 255)
+		//{
+		//	beeperOffTime = currentMillis + 5000;
+		//	digitalWrite(beeperpin, HIGH);
+		//}
 	}
 	pinCode = "";
 	uid = "";
