@@ -129,10 +129,10 @@ void ICACHE_FLASH_ATTR rfidloop()
 			return;
 		}
 		// We need to wait for the pin code after a card is read
-		if (pinCodeRequested && pinCode == "") {
-			if(ledwaitingpin != 255){
-			digitalWrite(ledwaitingpin, LOW);
-			}
+//		if (pinCodeRequested && pinCode == "") {
+//			if(ledwaitingpin != 255){
+//			digitalWrite(ledwaitingpin, LOW);
+//			}
 			return;
 		}
 	}
@@ -405,17 +405,14 @@ void ICACHE_FLASH_ATTR rfidloop()
 						unsigned long previousMillis = 0;
 	 					int beeperState = HIGH; 
 							if (currentMillis - previousMillis >= interval) {
-   								// save the last time you blinked the LED
     							previousMillis = currentMillis;
 
-    							// if the LED is off turn it on and vice-versa:
 					    		if (beeperState == HIGH) {
       								beeperState = LOW;
     							} else {
       								beeperState = HIGH;
     							}
 
-    							// set the LED with the ledState of the variable:
     							digitalWrite(beeperpin, beeperState);
   							}	
 						
