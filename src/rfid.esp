@@ -118,6 +118,9 @@ void ICACHE_FLASH_ATTR rfidloop()
 #endif
 			keyTimer = 0;
 			currentInput = "";
+			if(ledwaitingpin != 255){
+			digitalWrite(ledwaitingpin, HIGH);
+			}
 			return;
 		}
 		if (keyTimer > 0) // we are still waiting for keycode to build up
@@ -129,10 +132,10 @@ void ICACHE_FLASH_ATTR rfidloop()
 			return;
 		}
 		// We need to wait for the pin code after a card is read
-//		if (pinCodeRequested && pinCode == "") {
-//			if(ledwaitingpin != 255){
-//			digitalWrite(ledwaitingpin, LOW);
-//			}
+		if (pinCodeRequested && pinCode == "") {
+			if (ledwaitingpin !=255) {
+			digitalWrite(ledwaitingpin, LOW);			
+			}
 			return;
 		}
 	}
@@ -306,11 +309,6 @@ void ICACHE_FLASH_ATTR rfidloop()
 					{
 						mqtt_publish_access(now(), "true", "Wrong pin code", username, uid);
 					}
-					//if (beeperpin != 255)
-					//{
-					//	beeperOffTime = currentMillis + 5000;
-				//		digitalWrite(beeperpin, LOW);
-				//	}
 				}
 
 #ifdef DEBUG
@@ -342,8 +340,12 @@ void ICACHE_FLASH_ATTR rfidloop()
 						
 						if (beeperpin != 255)
 						{
-						beeperOffTime = currentMillis + 3000;
+						beeperOffTime = currentMillis + 2000;
 						digitalWrite(beeperpin, LOW);
+						}
+						
+						if (ledwaitingpin !=255) {
+						digitalWrite(ledwaitingpin, HIGH);			
 						}
 					}
 
@@ -399,24 +401,9 @@ void ICACHE_FLASH_ATTR rfidloop()
 						digitalWrite(ledwaitingpin, HIGH);			
 					}					
 					if (beeperpin != 255) {
-					    beeperOffTime = currentMillis + 5000 ;
-
-						const long interval = 500; 
-						unsigned long previousMillis = 0;
-	 					int beeperState = HIGH; 
-							if (currentMillis - previousMillis >= interval) {
-    							previousMillis = currentMillis;
-
-					    		if (beeperState == HIGH) {
-      								beeperState = LOW;
-    							} else {
-      								beeperState = HIGH;
-    							}
-
-    							digitalWrite(beeperpin, beeperState);
-  							}	
-						
-					}
+					    beeperOffTime = currentMillis + 1000 ;
+						beeperInterval = 200;
+	 				}
 						
 				}
 				writeLatest(uid, username, AccType);
@@ -476,11 +463,6 @@ void ICACHE_FLASH_ATTR rfidloop()
 		if (ledwaitingpin !=255) {
 			digitalWrite(ledwaitingpin, HIGH);			
 		}
-		//if (beeperpin != 255)
-		//{
-		//	beeperOffTime = currentMillis + 5000;
-		//	digitalWrite(beeperpin, HIGH);
-		//}
 	}
 	pinCode = "";
 	uid = "";

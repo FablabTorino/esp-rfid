@@ -128,6 +128,7 @@ uint8_t ledwaitingpin = 255;
 
 unsigned long accessdeniedOffTime = 0;
 unsigned long beeperOffTime = 0;
+unsigned long beeperInterval = 0;
 
 uint8_t lastTamperState = 0;
 
@@ -329,9 +330,30 @@ void ICACHE_RAM_ATTR loop()
 		digitalWrite(accessdeniedpin, LOW);
 	}
 
-	if (beeperpin != 255 && digitalRead(beeperpin) == LOW && currentMillis > beeperOffTime)
+	if (beeperpin != 255)
 	{
-		digitalWrite(beeperpin, HIGH);
+		if (currentMillis > beeperOffTime)
+		{
+			if (digitalRead(beeperpin) == LOW)
+			{
+			digitalWrite(beeperpin, HIGH);
+			beeperInterval = 0;
+			}
+		}else if (beeperInterval != 0)
+		{
+			int beeperState = digitalRead(beeperpin); 
+			if (currentMillis - previousMillis >= beeperInterval) 
+			{
+    			previousMillis = currentMillis;
+ 
+ 		    		if (beeperState == LOW) {
+						beeperState = HIGH;
+    				} else {
+						beeperState = LOW;
+ 					}
+				digitalWrite(beeperpin, beeperState);
+			}
+		}
 	}
 
 	if (doorstatpin != 255)
