@@ -21,7 +21,7 @@ void ICACHE_FLASH_ATTR wiegandRead()
 	// for the next key unless * or # have been pressed
 	// we do not require * as the first character because some0
 	// readers use this as special admin code and would hence require *#PIN#
-	if (wg.getWiegandType() == WIEGANDTYPE_KEYPRESS /*  && keyTimer > 0 */ && String(wg.getCode(), HEX) != "d" && String(wg.getCode(), HEX) != "1b")
+	if (wg.getWiegandType() == WIEGANDTYPE_KEYPRESS4 || wg.getWiegandType() == WIEGANDTYPE_KEYPRESS8 /*  && keyTimer > 0 */ && String(wg.getCode(), HEX) != "d" && String(wg.getCode(), HEX) != "1b")
 	{
 #ifdef DEBUG
 		Serial.println("Keycode captured. . .");
@@ -30,7 +30,7 @@ void ICACHE_FLASH_ATTR wiegandRead()
 		keyTimer = millis();
 	}
 	// When # is pressed stop keytimer to capture code
-	if (wg.getWiegandType() == WIEGANDTYPE_KEYPRESS && keyTimer > 0 && String(wg.getCode(), HEX) == "d")
+	if (wg.getWiegandType() == WIEGANDTYPE_KEYPRESS4 || wg.getWiegandType() == WIEGANDTYPE_KEYPRESS8 && keyTimer > 0 && String(wg.getCode(), HEX) == "d")
 	{
 		if(pinCodeRequested) {
 			pinCode = currentInput;
