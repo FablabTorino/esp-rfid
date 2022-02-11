@@ -39,7 +39,7 @@ SOFTWARE.
 #include <Bounce2.h>
 #include "magicnumbers.h"
 
-//#define DEBUG
+#define DEBUG
 
 int numRelays = 1;
 
