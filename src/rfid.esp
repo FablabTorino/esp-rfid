@@ -10,18 +10,21 @@ void ICACHE_FLASH_ATTR wiegandRead()
 	{
 #ifdef DEBUG
 		Serial.print(F("[ INFO ] PICC's UID: "));
-		Serial.println(wg.getCode());
+		Serial.println(wg.getCode(), HEX);
 #endif
-		uid = String(wg.getCode(), DEC);
+		uid = String(wg.getCode(), HEX);
 		type = String(wg.getWiegandType(), DEC);
-		cooldown = millis() + 2000;
+
+		if(!pinCodeRequested) {
+			cooldown = millis() + COOLDOWN_MILIS;
+		}
 	}
 	// if we get a 4 bit burst then a key has been pressed
 	// add the key to the current input and reset the Waiting time
 	// for the next key unless * or # have been pressed
 	// we do not require * as the first character because some
 	// readers use this as special admin code and would hence require *#PIN#
-	if (wg.getWiegandType() == WIEGANDTYPE_KEYPRESS /*  && keyTimer > 0 */ && String(wg.getCode(), HEX) != "d" && String(wg.getCode(), HEX) != "1b")
+	if ((wg.getWiegandType() == WIEGANDTYPE_KEYPRESS4 || wg.getWiegandType() == WIEGANDTYPE_KEYPRESS8) /*  && keyTimer > 0 */ && String(wg.getCode(), HEX) != "d" && String(wg.getCode(), HEX) != "1b")
 	{
 #ifdef DEBUG
 		Serial.println("Keycode captured. . .");
@@ -30,8 +33,9 @@ void ICACHE_FLASH_ATTR wiegandRead()
 		keyTimer = millis();
 	}
 	// When # is pressed stop keytimer to capture code
-	if (wg.getWiegandType() == WIEGANDTYPE_KEYPRESS && keyTimer > 0 && String(wg.getCode(), HEX) == "d")
+	if ((wg.getWiegandType() == WIEGANDTYPE_KEYPRESS4 || wg.getWiegandType() == WIEGANDTYPE_KEYPRESS8) && keyTimer > 0 && String(wg.getCode(), HEX) == "d")
 	{
+		
 		if(pinCodeRequested) {
 			pinCode = currentInput;
 		} else {
@@ -118,17 +122,30 @@ void ICACHE_FLASH_ATTR rfidloop()
 #endif
 			keyTimer = 0;
 			currentInput = "";
+			if(ledwaitingpin != 255)
+			{
+				digitalWrite(ledwaitingpin, HIGH);
+			}
 			return;
 		}
 		if (keyTimer > 0) // we are still waiting for keycode to build up
 		{
+			
 #ifdef DEBUG
 			Serial.println("[ INFO ] still waiting for keypress!!");
 #endif
 			return;
 		}
-		// We need to wait for the pin code after a card is read
-		if (pinCodeRequested && pinCode == "") {
+		String filename = "/P/";
+		filename += uid;
+		File f = SPIFFS.open(filename, "r");
+		// We need to wait for the pin code after a card is read if card is recognized
+		if (pinCodeRequested && pinCode == "" && f)
+		{
+			if (ledwaitingpin !=255)
+			{
+				digitalWrite(ledwaitingpin, LOW);
+			}
 			return;
 		}
 	}
@@ -330,6 +347,16 @@ void ICACHE_FLASH_ATTR rfidloop()
 						{
 							mqtt_publish_access(now(), "true", "Always", username, uid);
 						}
+						
+						if (beeperpin != 255)
+						{
+							beeperOffTime = currentMillis + 2000;
+							digitalWrite(beeperpin, LOW);
+						}
+						
+						if (ledwaitingpin !=255) {
+							digitalWrite(ledwaitingpin, HIGH);			
+						}
 					}
 
 					else
@@ -355,6 +382,15 @@ void ICACHE_FLASH_ATTR rfidloop()
 					{
 						mqtt_publish_access(now(), "true", "Admin", username, uid);
 					}
+
+					if (beeperpin != 255) {
+						beeperOffTime = currentMillis + 3000;
+						digitalWrite(beeperpin, LOW);
+					}
+		
+					if (ledwaitingpin !=255) {
+						digitalWrite(ledwaitingpin, HIGH);			
+					}	
 				}
 				else
 				{
@@ -370,6 +406,17 @@ void ICACHE_FLASH_ATTR rfidloop()
 						accessdeniedOffTime = currentMillis + 1000;
 						digitalWrite(accessdeniedpin, HIGH);
 					}
+					
+					if (ledwaitingpin !=255)
+					{
+						digitalWrite(ledwaitingpin, HIGH);
+					}					
+					
+					if (beeperpin != 255)
+					{
+						beeperOffTime = currentMillis + 1000 ;
+						beeperInterval = 200;
+	 				}
 				}
 				writeLatest(uid, username, AccType);
 				DynamicJsonDocument root(512);
@@ -423,6 +470,17 @@ void ICACHE_FLASH_ATTR rfidloop()
 		{
 			accessdeniedOffTime = currentMillis + 1000;
 			digitalWrite(accessdeniedpin, HIGH);
+		}
+		
+		if (ledwaitingpin !=255)
+		{
+			digitalWrite(ledwaitingpin, HIGH);
+		}
+
+		if (beeperpin != 255)
+		{
+			beeperOffTime = currentMillis + 1000;
+			beeperInterval = 200;
 		}
 	}
 	pinCode = "";

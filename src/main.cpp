@@ -39,8 +39,6 @@ SOFTWARE.
 #include <Bounce2.h>
 #include "magicnumbers.h"
 
-// #define DEBUG
-
 int numRelays = 1;
 
 #ifdef OFFICIALBOARD
@@ -123,7 +121,12 @@ uint8_t doorbellpin = 255;
 uint8_t lastDoorbellState = 0;
 
 uint8_t accessdeniedpin = 255;
+uint8_t beeperpin = 255;
+uint8_t ledwaitingpin = 255;
+
 unsigned long accessdeniedOffTime = 0;
+unsigned long beeperOffTime = 0;
+unsigned long beeperInterval = 0;
 
 uint8_t lastTamperState = 0;
 
@@ -139,6 +142,7 @@ unsigned long previousLoopMillis = 0;
 unsigned long currentMillis = 0;
 unsigned long cooldown = 0;
 unsigned long keyTimer = 0;
+unsigned long beeperTimer = 0;
 bool pinCodeRequested;
 unsigned long deltaTime = 0;
 unsigned long uptime = 0;
@@ -152,6 +156,7 @@ bool doDisableWifi = false;
 bool doEnableWifi = false;
 bool timerequest = false;
 bool formatreq = false;
+bool fallbackMode = false;
 unsigned long wifiTimeout = 0;
 unsigned long wiFiUptimeMillis = 0;
 char *deviceHostname = NULL;
@@ -244,8 +249,15 @@ void ICACHE_FLASH_ATTR setup()
 	configMode = loadConfiguration();
 	if (!configMode)
 	{
-		fallbacktoAPMode();
-		configMode = false;
+		if (!fallbackMode)
+		{
+			fallbacktoAPMode();
+			configMode = false;
+		}
+		else
+		{
+			configMode = true;	
+		}
 	}
 	else
 	{
@@ -314,6 +326,32 @@ void ICACHE_RAM_ATTR loop()
 	if (accessdeniedpin != 255 && digitalRead(accessdeniedpin) == HIGH && currentMillis > accessdeniedOffTime)
 	{
 		digitalWrite(accessdeniedpin, LOW);
+	}
+
+	if (beeperpin != 255)
+	{
+		if (currentMillis > beeperOffTime)
+		{
+			if (digitalRead(beeperpin) == LOW)
+			{
+				digitalWrite(beeperpin, HIGH);
+				beeperInterval = 0;
+			}
+		}
+		else if (beeperInterval != 0)
+		{
+			int beeperState = digitalRead(beeperpin); 
+			if (currentMillis - previousMillis >= beeperInterval) 
+			{
+    			previousMillis = currentMillis;
+				if (beeperState == LOW) {
+					beeperState = HIGH;
+				} else {
+					beeperState = LOW;
+				}
+				digitalWrite(beeperpin, beeperState);
+			}
+		}
 	}
 
 	if (doorstatpin != 255)

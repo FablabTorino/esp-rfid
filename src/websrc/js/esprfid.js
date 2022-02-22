@@ -28,7 +28,8 @@ var config = {
         "gateway": "",
         "dns": "",
         "apip": "192.168.4.1",
-        "apsubnet": "255.255.255.0"
+        "apsubnet": "255.255.255.0",
+        "fallbackmode": 0
     },
     "hardware": {
         "readertype": 1,
@@ -45,6 +46,8 @@ var config = {
         "doorbellpin": 255,
         "accessdeniedpin": 255,
         "doorstatpin": 255,
+        "beeperpin" : 255,
+        "ledwaitingpin" : 255,
         "maxOpenDoorTime": 0
     },
     "general": {
@@ -154,6 +157,8 @@ function listhardware() {
   document.getElementById("openlockpin").value = config.hardware.openlockpin;
   document.getElementById("accessdeniedpin").value = config.hardware.accessdeniedpin;
   document.getElementById("pincoderequested").value = config.hardware.pincoderequested;
+  document.getElementById("ledwaitingpin").value = config.hardware.ledwaitingpin;
+  document.getElementById("beeperpin").value = config.hardware.beeperpin;
   if (isOfficialBoard) {
     document.getElementById("readertype").value = 1;
     document.getElementById("wg0pin").value = 5;
@@ -236,6 +241,8 @@ function savehardware() {
   config.hardware.doorbellpin = parseInt(document.getElementById("doorbellpin").value);
   config.hardware.openlockpin = parseInt(document.getElementById("openlockpin").value);
   config.hardware.accessdeniedpin = parseInt(document.getElementById("accessdeniedpin").value);
+  config.hardware.beeperpin = parseInt(document.getElementById("beeperpin").value);
+  config.hardware.ledwaitingpin = parseInt(document.getElementById("ledwaitingpin").value);
   config.hardware["numrelays"] = numRelays; 
 
   for (var i = 2; i<=numRelays; i++)
@@ -369,6 +376,12 @@ function savenetwork() {
   config.network.wmode = wmode;
   config.network.pswd = document.getElementById("wifipass").value;
 
+  if (parseInt(document.querySelector("input[name=\"fallbackmode\"]:checked").value) === 1) {
+    config.network.fallbackmode = 1;
+  } else {
+
+    config.network.fallbackmode = 0;
+  }
 
   config.network.offtime = parseInt(document.getElementById("disable_wifi_after_seconds").value);
   uncommited();
@@ -487,7 +500,7 @@ function listnetwork() {
     document.getElementById("gateway").value = config.network.gateway;
     handleSTA();
   }
-
+  document.getElementById("fallbackmode").value = config.network.fallbackmode;
   document.getElementById("disable_wifi_after_seconds").value = config.network.offtime;
 
 }

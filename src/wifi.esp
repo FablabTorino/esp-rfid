@@ -145,7 +145,7 @@ bool ICACHE_FLASH_ATTR connectSTA(const char *ssid, const char *password, byte b
 		WiFi.begin(ssid, password);
 	}
 	unsigned long now = millis();
-	uint8_t timeout = 20; // define when to time out in seconds
+	uint8_t timeout = 5; // define when to time out in seconds
 	do
 	{
 		if (WiFi.status() == WL_CONNECTED)
