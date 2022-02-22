@@ -22,7 +22,7 @@ void ICACHE_FLASH_ATTR wiegandRead()
 	// if we get a 4 bit burst then a key has been pressed
 	// add the key to the current input and reset the Waiting time
 	// for the next key unless * or # have been pressed
-	// we do not require * as the first character because some0
+	// we do not require * as the first character because some
 	// readers use this as special admin code and would hence require *#PIN#
 	if ((wg.getWiegandType() == WIEGANDTYPE_KEYPRESS4 || wg.getWiegandType() == WIEGANDTYPE_KEYPRESS8) /*  && keyTimer > 0 */ && String(wg.getCode(), HEX) != "d" && String(wg.getCode(), HEX) != "1b")
 	{
@@ -122,8 +122,9 @@ void ICACHE_FLASH_ATTR rfidloop()
 #endif
 			keyTimer = 0;
 			currentInput = "";
-			if(ledwaitingpin != 255){
-			digitalWrite(ledwaitingpin, HIGH);
+			if(ledwaitingpin != 255)
+			{
+				digitalWrite(ledwaitingpin, HIGH);
 			}
 			return;
 		}
@@ -135,13 +136,15 @@ void ICACHE_FLASH_ATTR rfidloop()
 #endif
 			return;
 		}
-	String filename = "/P/";
-	filename += uid;
-	File f = SPIFFS.open(filename, "r");
+		String filename = "/P/";
+		filename += uid;
+		File f = SPIFFS.open(filename, "r");
 		// We need to wait for the pin code after a card is read if card is recognized
-		if (pinCodeRequested && pinCode == "" && f) {
-			if (ledwaitingpin !=255) {
-			digitalWrite(ledwaitingpin, LOW);
+		if (pinCodeRequested && pinCode == "" && f)
+		{
+			if (ledwaitingpin !=255)
+			{
+				digitalWrite(ledwaitingpin, LOW);
 			}
 			return;
 		}
@@ -347,12 +350,12 @@ void ICACHE_FLASH_ATTR rfidloop()
 						
 						if (beeperpin != 255)
 						{
-						beeperOffTime = currentMillis + 2000;
-						digitalWrite(beeperpin, LOW);
+							beeperOffTime = currentMillis + 2000;
+							digitalWrite(beeperpin, LOW);
 						}
 						
 						if (ledwaitingpin !=255) {
-						digitalWrite(ledwaitingpin, HIGH);			
+							digitalWrite(ledwaitingpin, HIGH);			
 						}
 					}
 
@@ -404,15 +407,16 @@ void ICACHE_FLASH_ATTR rfidloop()
 						digitalWrite(accessdeniedpin, HIGH);
 					}
 					
-					if (ledwaitingpin !=255) {
-						digitalWrite(ledwaitingpin, HIGH);			
+					if (ledwaitingpin !=255)
+					{
+						digitalWrite(ledwaitingpin, HIGH);
 					}					
 					
-					if (beeperpin != 255) {
-					    beeperOffTime = currentMillis + 1000 ;
+					if (beeperpin != 255)
+					{
+						beeperOffTime = currentMillis + 1000 ;
 						beeperInterval = 200;
 	 				}
-						
 				}
 				writeLatest(uid, username, AccType);
 				DynamicJsonDocument root(512);
@@ -468,12 +472,14 @@ void ICACHE_FLASH_ATTR rfidloop()
 			digitalWrite(accessdeniedpin, HIGH);
 		}
 		
-		if (ledwaitingpin !=255) {
-			digitalWrite(ledwaitingpin, HIGH);			
+		if (ledwaitingpin !=255)
+		{
+			digitalWrite(ledwaitingpin, HIGH);
 		}
 
-		if (beeperpin != 255) {
-		    beeperOffTime = currentMillis + 1000 ;
+		if (beeperpin != 255)
+		{
+			beeperOffTime = currentMillis + 1000;
 			beeperInterval = 200;
 		}
 	}

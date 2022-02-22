@@ -39,8 +39,6 @@ SOFTWARE.
 #include <Bounce2.h>
 #include "magicnumbers.h"
 
-#define DEBUG
-
 int numRelays = 1;
 
 #ifdef OFFICIALBOARD
@@ -181,8 +179,6 @@ bool mqttEvents = false;	  // Sends events over MQTT disables SPIFFS file loggin
 
 bool mqttHA = false; // Sends events over simple MQTT topics and AutoDiscovery
 
-char mqttBuffer[1460];
-
 #include "log.esp"
 #include "mqtt.esp"
 #include "helpers.esp"
@@ -255,10 +251,12 @@ void ICACHE_FLASH_ATTR setup()
 	{
 		if (!fallbackMode)
 		{
-		fallbacktoAPMode();
-		configMode = false;
-		}else{
-		configMode = true;	
+			fallbacktoAPMode();
+			configMode = false;
+		}
+		else
+		{
+			configMode = true;	
 		}
 	}
 	else
@@ -336,21 +334,21 @@ void ICACHE_RAM_ATTR loop()
 		{
 			if (digitalRead(beeperpin) == LOW)
 			{
-			digitalWrite(beeperpin, HIGH);
-			beeperInterval = 0;
+				digitalWrite(beeperpin, HIGH);
+				beeperInterval = 0;
 			}
-		}else if (beeperInterval != 0)
+		}
+		else if (beeperInterval != 0)
 		{
 			int beeperState = digitalRead(beeperpin); 
 			if (currentMillis - previousMillis >= beeperInterval) 
 			{
     			previousMillis = currentMillis;
- 
- 		    		if (beeperState == LOW) {
-						beeperState = HIGH;
-    				} else {
-						beeperState = LOW;
- 					}
+				if (beeperState == LOW) {
+					beeperState = HIGH;
+				} else {
+					beeperState = LOW;
+				}
 				digitalWrite(beeperpin, beeperState);
 			}
 		}
