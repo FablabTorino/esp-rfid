@@ -15,7 +15,7 @@ void ICACHE_FLASH_ATTR wiegandRead()
 		uid = String(wg.getCode(), HEX);
 		type = String(wg.getWiegandType(), DEC);
 
-		if(!pinCodeRequested) {
+		if(!config.pinCodeRequested) {
 			cooldown = millis() + COOLDOWN_MILIS;
 		}
 	}
@@ -35,8 +35,7 @@ void ICACHE_FLASH_ATTR wiegandRead()
 	// When # is pressed stop keytimer to capture code
 	if ((wg.getWiegandType() == WIEGANDTYPE_KEYPRESS4 || wg.getWiegandType() == WIEGANDTYPE_KEYPRESS8) && keyTimer > 0 && String(wg.getCode(), HEX) == "d")
 	{
-		
-		if(pinCodeRequested) {
+		if(config.pinCodeRequested) {
 			pinCode = currentInput;
 		} else {
 			uid = currentInput;
@@ -44,7 +43,7 @@ void ICACHE_FLASH_ATTR wiegandRead()
 		}
 #ifdef DEBUG
 		Serial.println("Stop capture keycode . . .");
-		if(pinCodeRequested) {
+		if(config.pinCodeRequested) {
 			Serial.print(F("[ INFO ] PICC's pin code: "));
 		}
 		else {
@@ -72,7 +71,7 @@ void ICACHE_FLASH_ATTR rfidloop()
 	}
 #endif
 #ifndef OFFICIALBOARD
-	if (readertype == READER_MFRC522)
+	if (config.readertype == READER_MFRC522)
 	{
 		if (!mfrc522.PICC_IsNewCardPresent())
 		{
@@ -102,7 +101,7 @@ void ICACHE_FLASH_ATTR rfidloop()
 		Serial.print(" " + type);
 #endif
 	}
-	else if (readertype == READER_WIEGAND)
+	else if (config.readertype == READER_WIEGAND)
 	{
 		if (wg.available())
 		{
@@ -122,9 +121,9 @@ void ICACHE_FLASH_ATTR rfidloop()
 #endif
 			keyTimer = 0;
 			currentInput = "";
-			if(ledwaitingpin != 255)
+			if(config.ledwaitingpin != 255)
 			{
-				digitalWrite(ledwaitingpin, HIGH);
+				digitalWrite(config.ledwaitingpin, HIGH);
 			}
 			return;
 		}
@@ -136,20 +135,16 @@ void ICACHE_FLASH_ATTR rfidloop()
 #endif
 			return;
 		}
-		String filename = "/P/";
-		filename += uid;
-		File f = SPIFFS.open(filename, "r");
-		// We need to wait for the pin code after a card is read if card is recognized
-		if (pinCodeRequested && pinCode == "" && f)
-		{
-			if (ledwaitingpin !=255)
+		// We need to wait for the pin code after a card is read
+		if (config.pinCodeRequested && pinCode == "") {
+			if (config.ledwaitingpin !=255)
 			{
-				digitalWrite(ledwaitingpin, LOW);
+				digitalWrite(config.ledwaitingpin, LOW);
 			}
 			return;
 		}
 	}
-	else if (readertype == READER_PN532)
+	else if (config.readertype == READER_PN532)
 	{
 		bool found = false;
 		byte pnuid[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -176,7 +171,7 @@ void ICACHE_FLASH_ATTR rfidloop()
 			return;
 		}
 	}
-	else if (readertype > READER_PN532)
+	else if (config.readertype > READER_PN532)
 	{
 		while (Serial.available() > 0)
 		{
@@ -194,14 +189,14 @@ void ICACHE_FLASH_ATTR rfidloop()
 		}
 		else
 		{
-			if (readertype == READER_RDM6300)
+			if (config.readertype == READER_RDM6300)
 			{
 				delay(50);
 				return;
 			}
 		}
 
-		if (readertype == READER_MFRC522_RDM6300 && uid.length() == 0)
+		if (config.readertype == READER_MFRC522_RDM6300 && uid.length() == 0)
 		{
 			if (!mfrc522.PICC_IsNewCardPresent())
 			{
@@ -232,7 +227,7 @@ void ICACHE_FLASH_ATTR rfidloop()
 #endif
 		}
 
-		else if (readertype == READER_WIEGAND_RDM6300 && uid.length() == 0)
+		else if (config.readertype == READER_WIEGAND_RDM6300 && uid.length() == 0)
 		{
 			if (wg.available())
 			{
@@ -250,7 +245,7 @@ void ICACHE_FLASH_ATTR rfidloop()
 			}
 		}
 
-		else if (readertype == READER_PN532_RDM6300 && uid.length() == 0)
+		else if (config.readertype == READER_PN532_RDM6300 && uid.length() == 0)
 		{
 			bool found = false;
 			byte pnuid[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -298,7 +293,7 @@ void ICACHE_FLASH_ATTR rfidloop()
 		if (!error)
 		{
 
-			for (int currentRelay = 0; currentRelay < numRelays; currentRelay++)
+			for (int currentRelay = 0; currentRelay < config.numRelays; currentRelay++)
 			{
 
 				int AccType = ACCCESS_DENIED;
@@ -310,12 +305,12 @@ void ICACHE_FLASH_ATTR rfidloop()
 					AccType = json["acctype" + String(currentRelay + 1)];
 
 				// if the pin code is wrong we deny access
-				if(pinCodeRequested && pinCode != json["pincode"]) {
+				if(config.pinCodeRequested && pinCode != json["pincode"]) {
 					AccType = ACCCESS_DENIED;
 #ifdef DEBUG
 					Serial.println("Wrong pin code");
 #endif
-					if (mqttEnabled)
+					if (config.mqttEnabled)
 					{
 						mqtt_publish_access(now(), "true", "Wrong pin code", username, uid);
 					}
@@ -329,7 +324,7 @@ void ICACHE_FLASH_ATTR rfidloop()
 				else
 					Serial.print(username);
 #endif
-				int hourTz = hour() + timeZone;
+				int hourTz = hour() + config.timeZone;
 				bool officeHour = hourTz >= 16 && hourTz < 20 && weekday() != 1  && weekday() != 7;
 				if (AccType == ACCESS_GRANTED && officeHour)
 				{
@@ -343,19 +338,19 @@ void ICACHE_FLASH_ATTR rfidloop()
 #ifdef DEBUG
 						Serial.printf(" has access relay %d\n", currentRelay);
 #endif
-						if (mqttEnabled)
+						if (config.mqttEnabled)
 						{
 							mqtt_publish_access(now(), "true", "Always", username, uid);
 						}
 						
-						if (beeperpin != 255)
+						if (config.beeperpin != 255)
 						{
-							beeperOffTime = currentMillis + 2000;
-							digitalWrite(beeperpin, LOW);
+							config.beeperOffTime = currentMillis + 2000;
+							digitalWrite(config.beeperpin, LOW);
 						}
 						
-						if (ledwaitingpin !=255) {
-							digitalWrite(ledwaitingpin, HIGH);			
+						if (config.ledwaitingpin !=255) {
+							digitalWrite(config.ledwaitingpin, HIGH);			
 						}
 					}
 
@@ -364,7 +359,7 @@ void ICACHE_FLASH_ATTR rfidloop()
 #ifdef DEBUG
 						Serial.println(" expired");
 #endif
-						if (mqttEnabled)
+						if (config.mqttEnabled)
 						{
 							mqtt_publish_access(now(), "true", "Expired", username, uid);
 						}
@@ -378,18 +373,18 @@ void ICACHE_FLASH_ATTR rfidloop()
 #ifdef DEBUG
 					Serial.println(" has admin access, enable wifi");
 #endif
-					if (mqttEnabled)
+					if (config.mqttEnabled)
 					{
 						mqtt_publish_access(now(), "true", "Admin", username, uid);
 					}
 
-					if (beeperpin != 255) {
-						beeperOffTime = currentMillis + 3000;
-						digitalWrite(beeperpin, LOW);
+					if (config.beeperpin != 255) {
+						config.beeperOffTime = currentMillis + 3000;
+						digitalWrite(config.beeperpin, LOW);
 					}
 		
-					if (ledwaitingpin !=255) {
-						digitalWrite(ledwaitingpin, HIGH);			
+					if (config.ledwaitingpin !=255) {
+						digitalWrite(config.ledwaitingpin, HIGH);			
 					}	
 				}
 				else
@@ -397,25 +392,25 @@ void ICACHE_FLASH_ATTR rfidloop()
 #ifdef DEBUG
 					Serial.println(" does not have access");
 #endif
-					if (mqttEnabled)
+					if (config.mqttEnabled)
 					{
 						mqtt_publish_access(now(), "true", "Disabled", username, uid);
 					}
-					if (accessdeniedpin != 255)
+					if (config.accessdeniedpin != 255)
 					{
 						accessdeniedOffTime = currentMillis + 1000;
-						digitalWrite(accessdeniedpin, HIGH);
+						digitalWrite(config.accessdeniedpin, HIGH);
 					}
 					
-					if (ledwaitingpin !=255)
+					if (config.ledwaitingpin !=255)
 					{
-						digitalWrite(ledwaitingpin, HIGH);
+						digitalWrite(config.ledwaitingpin, HIGH);
 					}					
 					
-					if (beeperpin != 255)
+					if (config.beeperpin != 255)
 					{
-						beeperOffTime = currentMillis + 1000 ;
-						beeperInterval = 200;
+						config.beeperOffTime = currentMillis + 1000 ;
+						config.beeperInterval = 200;
 	 				}
 				}
 				writeLatest(uid, username, AccType);
@@ -462,25 +457,25 @@ void ICACHE_FLASH_ATTR rfidloop()
 			serializeJson(root, (char *)buffer->get(), len + 1);
 			ws.textAll(buffer);
 		}
-		if (mqttEnabled)
+		if (config.mqttEnabled)
 		{
 			mqtt_publish_access(now(), "false", "Denied", "Unknown", uid);
 		}
-		if (accessdeniedpin != 255)
+		if (config.accessdeniedpin != 255)
 		{
 			accessdeniedOffTime = currentMillis + 1000;
-			digitalWrite(accessdeniedpin, HIGH);
+			digitalWrite(config.accessdeniedpin, HIGH);
 		}
 		
-		if (ledwaitingpin !=255)
+		if (config.ledwaitingpin !=255)
 		{
-			digitalWrite(ledwaitingpin, HIGH);
+			digitalWrite(config.ledwaitingpin, HIGH);
 		}
 
-		if (beeperpin != 255)
+		if (config.beeperpin != 255)
 		{
-			beeperOffTime = currentMillis + 1000;
-			beeperInterval = 200;
+			config.beeperOffTime = currentMillis + 1000;
+			config.beeperInterval = 200;
 		}
 	}
 	pinCode = "";
