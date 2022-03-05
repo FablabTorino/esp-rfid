@@ -56,6 +56,22 @@ void onMqttDisconnect(AsyncMqttClientDisconnectReason reason)
 	}
 }
 
+void mqttPublishEvent(JsonDocument *root)
+{
+	if (mqttClient.connected())
+	{
+		String stopic(mqttTopic);
+		stopic = stopic + "/send";
+		String mqttBuffer;
+		serializeJson(*root, mqttBuffer);
+		mqttClient.publish(stopic.c_str(), 0, false, mqttBuffer.c_str());
+#ifdef DEBUG
+		Serial.print("[ INFO ] Mqtt Publish:");
+		Serial.println(mqttBuffer);
+#endif
+	}
+}
+
 void mqtt_publish_boot(time_t boot_time)
 {
 	String stopic(mqttTopic);
@@ -289,18 +305,6 @@ void mqtt_publish_io(String const &io, String const &state)
 	}
 }
 
-void mqtt_publish_event(JsonDocument *root)
-{
-	if (mqttClient.connected())
-	{
-		String stopic(mqttTopic);
-		stopic = stopic + "/send";
-		String mqttBuffer;
-		serializeJson(*root, mqttBuffer);
-		mqttClient.publish(stopic.c_str(), 0, false, mqttBuffer.c_str());
-	}
-}
-
 void onMqttPublish(uint16_t packetId)
 {
 	writeEvent("INFO", "mqtt", "MQTT publish acknowledged", String(packetId));
@@ -465,6 +469,12 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
 		}
 		lastMessage->nextMessage = incomingMessage;
 	}
+
+	DynamicJsonDocument root(512);
+	root["type"] = mqttIncomingJson["cmd"];
+	root["ip"] = WiFi.localIP().toString();
+	root["hostname"] = deviceHostname;
+	mqttPublishEvent(&root);
 
 	return;
 }
