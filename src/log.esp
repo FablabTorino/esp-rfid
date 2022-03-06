@@ -55,7 +55,7 @@ void ICACHE_FLASH_ATTR sendLogFile(int page, String fileName, int logFileType)
 	if (page == 1)
 		lastPos = 0;
 	float pages;
-	DynamicJsonDocument root(2048);
+	DynamicJsonDocument root(4096);
 	if (logFileType == LOGTYPE_EVENTLOG)
 		root["command"] = "eventlist";
 	if (logFileType == LOGTYPE_LATESTLOG)

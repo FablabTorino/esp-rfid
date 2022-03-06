@@ -98,6 +98,8 @@ https://github.com/esprfid/esp-rfid/releases
 On Windows you can use **"flash.bat"**, it will ask you which COM port that ESP is connected and then flashes it. You can use any flashing tool and do the flashing manually. The flashing process itself has been described at numerous places on Internet.
 
 #### Building With PlatformIO
+
+In order to start to build the project from scratch, you need to upload both the backend and the frontend, so follow the instructions of both.
 ##### Backend
 The build environment is based on [PlatformIO](http://platformio.org). Follow the instructions found here: http://platformio.org/#!/get-started for installing it but skip the ```platform init``` step as this has already been done, modified and it is included in this repository. In summary:
 
@@ -148,6 +150,7 @@ There are two alternative ways to test the UI
 
 When testing locally, use the password ```neo``` for admin capabilities.
 
+To upload the minified files, you can use ```pio run -t uploadfs``` or use the "Upload Filesystem Image" task of Platformio.
 
 ### Pin Layout
 
@@ -227,6 +230,10 @@ At least 1000 unique User (RFID Tag) can be handled, the test were performed on 
 
 * Logging needs testing. How long should it need to log access? What if a Boss needs whole year log?
 * Reliability on Flash (these NOR Flash have limited write cycle on their cells). It depends on manufacturer choice of Flash Chip and usage.
+
+## Upgrade from v1
+
+If you have an existing v1 system that you would like to upgrade to v2, you should first download the existing config.json file, by running ```pio run -t downloadfs```, then in the `unpacked_fs` folder you should find the `config.json` file that you should copy over the `web-ui-data`. Then you can follow the standard steps for backend and frontend above to upload on your ESP.
 
 ## Community
 * [![Chat at https://gitter.im/esp-rfid/Lobby](https://badges.gitter.im/esp-rfid.svg)](https://gitter.im/esp-rfid/Lobby) Join community chat on Gitter

@@ -196,7 +196,6 @@ function listhardware() {
 }
 
 function listlog() {
-//  websock.send("{\"command\":\"getlatestlog\", \"page\":" + page + "}");
   websock.send("{\"command\":\"getlatestlog\", \"page\":" + page + ", \"filename\":\"" + theCurrentLogFile +"\"}");
 }
 
@@ -1918,6 +1917,18 @@ function connectWS() {
     websock.send("{\"command\":\"getconf\"}");
     websock.send("{\"command\":\"status\"}");
   };
+
+  websock.onclose = function(evt) {
+    console.log('closed!');
+    checkWS();
+  }
+}
+
+function checkWS(){
+  if(!websock || websock.readyState == WebSocket.CLOSED) {
+    console.log("reconnecting");
+    connectWS();
+  }
 }
 
 function upload() {
@@ -2010,3 +2021,5 @@ function start() {
 
 document.addEventListener("touchstart", handleTouchStart, false);
 document.addEventListener("touchmove", handleTouchMove, false);
+
+start();

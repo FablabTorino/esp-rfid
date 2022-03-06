@@ -70,16 +70,6 @@ bool deactivateRelay[MAX_NUM_RELAYS] = {false, false, false, false};
 
 #endif
 
-// these are from vendors
-#include "webh/glyphicons-halflings-regular.woff.gz.h"
-#include "webh/required.css.gz.h"
-#include "webh/required.js.gz.h"
-
-// these are from us which can be updated and changed
-#include "webh/esprfid.js.gz.h"
-#include "webh/esprfid.htm.gz.h"
-#include "webh/index.html.gz.h"
-
 NtpClient NTP;
 AsyncMqttClient mqttClient;
 Ticker mqttReconnectTimer;
