@@ -46,7 +46,7 @@ void wiegandRead()
 			uid = String(wg.getCode(), HEX);
 			type = String(wg.getWiegandType(), DEC);
 
-			File f = SPIFFS.open("/P/" + uid, "r");
+			File f = LittleFS.open("/P/" + uid, "r");
 			// user exists, we should wait for pincode
 			if (f)
 			{
@@ -233,7 +233,7 @@ void rfidProcess()
 		return;
 	}
 
-	File f = SPIFFS.open("/P/" + uid, "r");
+	File f = LittleFS.open("/P/" + uid, "r");
 	if (!f)
 	{
 		processingState = unknown;

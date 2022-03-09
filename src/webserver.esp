@@ -3,7 +3,7 @@ void ICACHE_FLASH_ATTR setupWebServer() {
 	ws.onEvent(onWsEvent);
 
 	// one month of caching
-	server.serveStatic("/", SPIFFS, "/").setCacheControl("max-age=2592000");
+	server.serveStatic("/", LittleFS, "/").setCacheControl("max-age=2592000");
 
 	server.onNotFound([](AsyncWebServerRequest *request) {
 		AsyncWebServerResponse *response = request->beginResponse(404, "text/plain", "Not found");

@@ -692,9 +692,9 @@ function listStats() {
   document.getElementById("flash").innerHTML = ajaxobj.availsize + " Bytes";
   document.getElementById("flash").style.width = (ajaxobj.availsize * 100) / (ajaxobj.availsize + ajaxobj.sketchsize) + "%";
   colorStatusbar(document.getElementById("flash"));
-  document.getElementById("spiffs").innerHTML = ajaxobj.availspiffs + " Bytes";
-  document.getElementById("spiffs").style.width = (ajaxobj.availspiffs * 100) / ajaxobj.spiffssize + "%";
-  colorStatusbar(document.getElementById("spiffs"));
+  document.getElementById("littlefs").innerHTML = ajaxobj.availlittlefs + " Bytes";
+  document.getElementById("littlefs").style.width = (ajaxobj.availlittlefs * 100) / ajaxobj.littlefssize + "%";
+  colorStatusbar(document.getElementById("littlefs"));
   document.getElementById("ssidstat").innerHTML = ajaxobj.ssid;
   document.getElementById("ip").innerHTML = ajaxobj.ip;
   document.getElementById("gate").innerHTML = ajaxobj.gateway;
