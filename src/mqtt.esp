@@ -469,12 +469,6 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
 		lastMessage->nextMessage = incomingMessage;
 	}
 
-	DynamicJsonDocument root(512);
-	root["type"] = mqttIncomingJson["cmd"];
-	root["ip"] = WiFi.localIP().toString();
-	root["hostname"] = config.deviceHostname;
-	mqttPublishEvent(&root);
-
 	return;
 }
 
@@ -547,6 +541,12 @@ void processMqttMessage(MqttMessage *incomingMessage) {
 		}
 		f.close();
 	}
+	DynamicJsonDocument root(512);
+	root["type"] = incomingMessage->command;
+	root["ip"] = WiFi.localIP().toString();
+	root["hostname"] = config.deviceHostname;
+	mqttPublishEvent(&root);
+	
 	free(incomingMessage);
 	return;
 }
