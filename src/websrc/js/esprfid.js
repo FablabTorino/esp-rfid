@@ -42,6 +42,7 @@ var config = {
         "ltype": 0,
         "rpin": 4,
         "rtime": 400,
+        "rdname": "Door1",
         "openlockpin": 255,
         "doorbellpin": 255,
         "accessdeniedpin": 255,
@@ -150,6 +151,7 @@ function listhardware() {
   document.getElementById("lockType").value = config.hardware.ltype;
   document.getElementById("typerly").value = config.hardware.rtype;
   document.getElementById("delay").value = config.hardware.rtime;
+  document.getElementById("doorname").value = config.hardware.rdname;
   document.getElementById("wifipin").value = config.hardware.wifipin;
   document.getElementById("doorstatpin").value = config.hardware.doorstatpin;
   document.getElementById("maxOpenDoorTime").value = config.hardware.maxOpenDoorTime;
@@ -187,6 +189,7 @@ function listhardware() {
       document.getElementById("lockType"+i).value = config.hardware["relay"+i].ltype;
       document.getElementById("typerly"+i).value = config.hardware["relay"+i].rtype;
       document.getElementById("delay"+i).value = config.hardware["relay"+i].rtime;
+      document.getElementById("doorname"+i).value = config.hardware["relay"+i].rdname;
     }  
   }
   handleReader();
@@ -235,6 +238,7 @@ function savehardware() {
   config.hardware.ltype = parseInt(document.getElementById("lockType").value);
   config.hardware.rpin = parseInt(document.getElementById("gpiorly").value);
   config.hardware.rtime = parseInt(document.getElementById("delay").value);
+  config.hardware.rdname = document.getElementById("doorname").value;
   config.hardware.wifipin = parseInt(document.getElementById("wifipin").value);
   config.hardware.doorstatpin = parseInt(document.getElementById("doorstatpin").value);
   config.hardware.maxOpenDoorTime = parseInt(document.getElementById("maxOpenDoorTime").value);
@@ -251,6 +255,7 @@ function savehardware() {
     config.hardware["relay"+i].ltype = document.getElementById("lockType"+i).value;
     config.hardware["relay"+i].rtype = document.getElementById("typerly"+i).value;
     config.hardware["relay"+i].rtime = document.getElementById("delay"+i).value;
+    config.hardware["relay"+i].rdname = document.getElementById("doorname"+i).value;
   }  
   uncommited();
 }
@@ -1660,6 +1665,7 @@ function updateRelayForm(){
         str=str.replace ("gpiorly","gpiorly" +i);
         str=str.replace ("lockType","lockType" +i);
         str=str.replace ("typerly","typerly" +i);
+        str=str.replace ("doorname","doorname" +i);
         str=str.replace ("handleLock(1)","handleLock(" +i+")");
         str=str.replace ("testRelay(1)","testRelay(" +i+")");
         str=str.replace ("activateTimeForm","activateTimeForm"+i);
