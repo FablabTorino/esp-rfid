@@ -754,6 +754,8 @@ function getContent(contentname) {
           data = [];
           getUsers();
           break;
+        case "#acctypecontent":
+          break;
         case "#eventcontent":
           page = 1;
           data = [];
@@ -1215,7 +1217,7 @@ function initUserTable() {
           },
           {
             "name": "acctype",
-            "title": "Access Rl1",
+            "title": "Access Door "+config.hardware.rdname,
             "breakpoints": "xs",
             "parser": function(value) {
               if (value === 1) {
@@ -1230,7 +1232,7 @@ function initUserTable() {
           },
           {
             "name": "acctype2",
-            "title": "Access Rl2",
+            "title": "Access Door "+config.hardware.relay2.rdname,
             "breakpoints": "xs",
             "visible": false,
             "parser": function(value) {
@@ -1246,7 +1248,7 @@ function initUserTable() {
           },
           {
             "name": "acctype3",
-            "title": "Access Rl3",
+            "title": "Access Door "+config.hardware.relay3.rdname,
             "breakpoints": "xs",
             "visible": false,
             "parser": function(value) {
@@ -1262,7 +1264,7 @@ function initUserTable() {
           },
           {
             "name": "acctype4",
-            "title": "Access Rl4",
+            "title": "Access Door "+config.hardware.relay4.rdname,
             "breakpoints": "xs",
             "visible": false,
             "parser": function(value) {
@@ -1765,6 +1767,9 @@ $("#ntp").click(function() {
 });
 $("#users").click(function() {
   getContent("#userscontent");
+});
+$("#acctype").click(function() {
+  getContent("#acctypecontent");
 });
 $("#latestlog").click(function() {
   theCurrentLogFile="/latestlog.json";
