@@ -39,7 +39,7 @@ SOFTWARE.
 #include <Bounce2.h>
 #include "magicnumbers.h"
 #include "config.h"
-
+//#define DEBUG
 Config config;
 
 #ifdef OFFICIALBOARD
