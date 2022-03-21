@@ -36,5 +36,5 @@ struct Config {
 	uint8_t wifipin = 255;
     unsigned long wifiTimeout = 0;
     int wmode;
-    char doorName[MAX_NUM_RELAYS];
+    char *doorName[MAX_NUM_RELAYS];
 };

@@ -172,7 +172,8 @@ bool ICACHE_FLASH_ATTR loadConfiguration(Config &config)
 	config.activateTime[0] = hardware["rtime"];
 	config.lockType[0] = hardware["ltype"];
 	config.relayType[0] = hardware["rtype"];
-	config.doorName[0] = hardware["rdname"];
+    String doorNameString = hardware["rdname"];
+	config.doorName[0]= strdup(doorNameString.c_str());
 
 #ifndef OFFICIALBOARD
 	config.relayPin[0] = hardware["rpin"];
@@ -183,7 +184,8 @@ bool ICACHE_FLASH_ATTR loadConfiguration(Config &config)
 	{
 		JsonObject relay = hardware["relay" + String((i + 1))];
 		config.activateTime[i] = relay["rtime"];
-		config.doorName[i] = relay["rdname"];
+		String doorNameString = relay["rdname"];
+		config.doorName[i]= strdup(doorNameString.c_str());
 		config.lockType[i] = relay["ltype"];
 		config.relayType[i] = relay["rtype"];
 		config.relayPin[i] = relay["rpin"];

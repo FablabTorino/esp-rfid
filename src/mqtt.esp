@@ -269,7 +269,10 @@ void mqttPublishAccess(time_t accesstime, String const &isknown, String const &u
 			root["username"] = user;
 			root["uid"] = uid;
 			root["hostname"] = config.deviceHostname;
-			root["access"]= config.doorName[0]+type;
+			for (int currentRelay = 0; currentRelay < config.numRelays; currentRelay++)
+			{
+			root[config.doorName[currentRelay]] = type;
+			}
 		}
 		else
 		{
