@@ -16,6 +16,11 @@
 // user related numbers
 
 #define ACCESS_GRANTED 1
+#define ACCESS_SEL_HOURS 2
+#define ACCESS_SEL_DAYS 3
+#define ACCESS_SEL_DAYS_HOURS 4
+#define ACCESS_WEEKENDS 5
+#define ACCESS_WEEKDAYS 6
 #define ACCESS_ADMIN 99
 #define ACCCESS_DENIED 0
 

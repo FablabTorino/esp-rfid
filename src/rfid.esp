@@ -283,7 +283,7 @@ void rfidProcess()
 		unsigned long validL = json["validuntil"];
 		unsigned long nowL = now();
 		int hourTz = hour() + config.timeZone;
-		bool officeHour = hourTz >= 16 && hourTz < 20 && weekday() != 1  && weekday() != 7;
+		bool officeHour = hourTz >= 06 && hourTz < 20; //&& weekday() != 1  && weekday() != 7;
 		if (validL < nowL)
 		{
 			processingState = expired;
@@ -309,7 +309,7 @@ void rfidProcess()
 			if (currentRelay == 0) {
 				activateRelay[currentRelay] = true;
 			} else {
-				bool isRelayActive = json["acctype" + currentRelay + 1] == ACCESS_GRANTED;
+				bool isRelayActive = json["acctype" + String(currentRelay + 1)] == ACCESS_GRANTED;
 				activateRelay[currentRelay] = isRelayActive;
 			}
 			if (processingState == validAdmin)

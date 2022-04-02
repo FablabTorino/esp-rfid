@@ -76,6 +76,11 @@ var config = {
         "server": "pool.ntp.org",
         "interval": 30,
         "timezone": 0
+    },
+    "standardaccess": {
+          "server": "pool.ntp.org",
+          "interval": 30,
+          "timezone": 0
     }
 };
 
@@ -475,6 +480,24 @@ function handleDHCP() {
   }
 }
 
+function Preset1() {
+  if (document.querySelector("input[name=\"preset1enabled\"]:checked").value === "0") {
+    $("#preset1").slideUp();
+  } else {
+    $("#preset1").slideDown();
+    $("#preset1").show();
+  }
+}
+
+function Preset2() {
+  if (document.querySelector("input[name=\"preset2enabled\"]:checked").value === "0") {
+    $("#preset2").slideUp();
+  } else {
+    $("#preset2").slideDown();
+    $("#preset2").show();
+  }
+}
+
 function handleSTA() {
   document.getElementById("hideap").style.display = "none";
   document.getElementById("hideBSSID").style.display = "block";
@@ -488,6 +511,29 @@ function handleSTA() {
 }
 
 function listnetwork() {
+
+  document.getElementById("inputtohide").value = config.network.ssid;
+  document.getElementById("wifipass").value = config.network.pswd;
+  if (config.network.wmode === 1) {
+    document.getElementById("wmodeap").checked = true;
+    if (config.network.hide === 1) {
+      $("input[name=\"hideapenable\"][value=\"1\"]").prop("checked", true);
+      //$("input[name=hideapenable][value=\"1\"]").attr("checked", "checked");
+    }
+    handleAP();
+  } else {
+    document.getElementById("wmodesta").checked = true;
+    document.getElementById("wifibssid").value = config.network.bssid;
+    document.getElementById("dnsadd").value = config.network.dns;
+    document.getElementById("gateway").value = config.network.gateway;
+    handleSTA();
+  }
+  document.getElementById("fallbackmode").value = config.network.fallbackmode;
+  document.getElementById("disable_wifi_after_seconds").value = config.network.offtime;
+
+}
+
+function access_standards() {
 
   document.getElementById("inputtohide").value = config.network.ssid;
   document.getElementById("wifipass").value = config.network.pswd;
@@ -743,6 +789,9 @@ function getContent(contentname) {
           break;
         case "#networkcontent":
           listnetwork();
+          break;
+        case "#accessstandards":
+          access_standards();
           break;
         case "#logcontent":
           page = 1;
@@ -1702,7 +1751,8 @@ function updateUserModalForm(){
 
         var str = cloneObj.innerHTML;
         str=str.replace(/acctype/g,"acctype"+i);
-        str=str.replace("Access Type","Access Relay "+i);
+        str=str.replace("Access Type Relay 1","Access Type Relay "+i);
+        str=str.replace ('<option value="99">Admin</option>', '');
         cloneObj.innerHTML=str;
         accParent[0].appendChild(cloneObj);
       }
@@ -1747,6 +1797,10 @@ $("#status").click(function() {
 
 $("#network").on("click", (function() {
   getContent("#networkcontent");
+  return false;
+}));
+$("#accesstime").on("click", (function() {
+  getContent("#accessstandards");
   return false;
 }));
 $("#hardware").click(function() {

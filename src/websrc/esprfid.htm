@@ -741,6 +741,218 @@
     <br>
     <br>
 </div>
+<div id="accessstandards">
+    <br>
+    <br>
+    <legend>Standard Access Days&Hours</legend>
+    <h6 class="text-muted">Configure your standard access Days & Hours</h6>
+    <br>
+    <div class="row form-group" id="preset">
+        <label class="col-xs-3">Preset 1<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content=""></i></label>
+        <div class="col-xs-9">
+            <form>
+                <label class="radio-inline">
+                    <input type="radio" value="1" name="preset1enabled" onclick="Preset1();">Yes</label>
+                <label class="radio-inline">
+                    <input type="radio" value="0" name="preset1enabled" onclick="Preset1();" checked>No</label>
+            </form>
+        </div>
+    </div>
+    <div id="preset1" style="display:none">
+        <div class="row form-group">
+            <label class="col-xs-3">Preset Name<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-html="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Enter preset Name"></i></label>
+            <span class="col-xs-9 col-md-6">
+              <input id="preset1name" class="form-control input-sm">
+            </span>
+        </div>
+        <div class="row form-group">
+            <label class="col-xs-3">Preset 1 Days</label>
+            <span class="col-xs-9 col-md-6">
+                <form>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="1" name="monday"> Monday</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="2" name="tuesday"> Tuesday</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="3" name="wednesday"> Wednesday</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="4" name="tuesday"> Thursday</label>                        
+                    <label class="radio-inline">
+                        <input type="checkbox" value="5" name="friday"> Friday</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="6" name="saturday"> Saturday</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="7" name="sunday"> Sunday</label>
+                </form>
+            </span>
+        </div>
+        <div class="row form-group">
+            <label class="col-xs-3">Preset 1 Hours</label>
+            <span class="col-xs-9 col-md-6">
+                <form>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="00" name="00"> 00</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="01" name="01"> 01</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="02" name="02"> 02</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="03" name="03"> 03</label>                        
+                    <label class="radio-inline">
+                        <input type="checkbox" value="04" name="04"> 04</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="05" name="05"> 05</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="06" name="06"> 06</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="07" name="07"> 07</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="08" name="08"> 08</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="09" name="09"> 09</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="10" name="10"> 10</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="11" name="11"> 11</label>
+                </form>
+            </span>
+            <span class="col-xs-9 col-md-6">
+                <form>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="12" name="12"> 12</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="13" name="13"> 13</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="14" name="14"> 14</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="15" name="15"> 15</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="16" name="16"> 16</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="17" name="17"> 17</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="18" name="18"> 18</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="19" name="19"> 19</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="20" name="20"> 20</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="21" name="21"> 21</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="22" name="22"> 22</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="23" name="23"> 23</label>
+                </form>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="row form-group" id="preset">
+        <label class="col-xs-3">Preset 2<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content=""></i></label>
+        <div class="col-xs-9">
+            <form>
+                <label class="radio-inline">
+                    <input type="radio" value="1" name="preset2enabled" onclick="Preset2();">Yes</label>
+                <label class="radio-inline">
+                    <input type="radio" value="0" name="preset2enabled" onclick="Preset2();" checked>No</label>
+            </form>
+        </div>
+    </div>
+    <div id="preset2" style="display:none">
+        <div class="row form-group">
+            <label class="col-xs-3">Preset Name<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-html="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Enter preset Name"></i></label>
+            <span class="col-xs-9 col-md-6">
+              <input id="preset2name" class="form-control input-sm">
+            </span>
+        </div>
+        <div class="row form-group">
+            <label class="col-xs-3">Preset 2 Days</label>
+            <span class="col-xs-9 col-md-6">
+                <form>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="1" name="monday"> Monday</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="2" name="tuesday"> Tuesday</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="3" name="wednesday"> Wednesday</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="4" name="tuesday"> Thursday</label>                        
+                    <label class="radio-inline">
+                        <input type="checkbox" value="5" name="friday"> Friday</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="6" name="saturday"> Saturday</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="7" name="sunday"> Sunday</label>
+                </form>
+            </span>
+        </div>
+        <div class="row form-group">
+            <label class="col-xs-3">Preset 2 Hours</label>
+            <span class="col-xs-9 col-md-6">
+                <form>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="00" name="00"> 00</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="01" name="01"> 01</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="02" name="02"> 02</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="03" name="03"> 03</label>                        
+                    <label class="radio-inline">
+                        <input type="checkbox" value="04" name="04"> 04</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="05" name="05"> 05</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="06" name="06"> 06</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="07" name="07"> 07</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="08" name="08"> 08</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="09" name="09"> 09</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="10" name="10"> 10</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="11" name="11"> 11</label>
+                </form>
+            </span>
+            <span class="col-xs-9 col-md-6">
+                <form>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="12" name="12"> 12</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="13" name="13"> 13</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="14" name="14"> 14</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="15" name="15"> 15</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="16" name="16"> 16</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="17" name="17"> 17</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="18" name="18"> 18</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="19" name="19"> 19</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="20" name="20"> 20</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="21" name="21"> 21</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="22" name="22"> 22</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" value="23" name="23"> 23</label>
+                </form>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="col-xs-9 col-md-8">
+            <button onclick="savepresets()" class="btn btn-primary btn-sm pull-right">Save</button>
+    </div>
+    <br>
+    <br>
+</div>
 <div id="ntpcontent">
     <br>
     <br>
@@ -972,23 +1184,21 @@
                         </div>
                     </div>
                     <div id=useracctype class="form-group required">
-                        <label for="acctype" class="col-sm-3 control-label">Access Type</label>
+                        <label for="acctype" class="col-sm-3 control-label" placeholder="If ADMIN selected can open all doors at all times!">Access Type Relay 1</label>
                         <div class="col-sm-9">
                             <select class="form-control" id="acctype" required>
                                 <option selected="selected" value="1">Always</option>
-                                <!--
                                 <option value="2">Within Selected Hours</option>
                                 <option value="3">Within Selected Days</option>
                                 <option value="4">Within Selected Days and Hours</option>
                                 <option value="5">On Weekends</option>
                                 <option value="6">On Weekdays</option>
-                                -->
                                 <option value="0">Disabled</option>
                                 <option value="99">Admin</option>
                             </select>
                         </div>
                     </div>
-                    <!--
+                    
                     <div class="form-group">
                         <label for="accinfo" class="col-sm-3 control-label">Acc Type Info</label>
                         <div class="col-sm-9">
@@ -996,7 +1206,7 @@
                             </pre>
                         </div>
                     </div>
-                    -->
+                    
                     <div class="form-group required">
                         <label for="validuntil" class="col-sm-3 control-label">Valid Until</label>
                         <div class="col-sm-9">

@@ -271,8 +271,18 @@ void mqttPublishAccess(time_t accesstime, String const &isknown, String const &u
 			root["hostname"] = config.deviceHostname;
 			for (int currentRelay = 0; currentRelay < config.numRelays; currentRelay++)
 			{
-			root[config.doorName[currentRelay]] = type;
-			}
+				if (currentRelay == 0) {
+					root[config.doorName[currentRelay]] = type;
+				} else {
+					File f = SPIFFS.open("/P/" + uid, "r");
+					size_t size = f.size();
+					std::unique_ptr<char[]> buf(new char[size]);
+					f.readBytes(buf.get(), size);
+					f.close();
+					DynamicJsonDocument json(512);
+					root[config.doorName[currentRelay]] = json["acctype" + String(currentRelay + 1)];
+				}	
+						}
 		}
 		else
 		{
