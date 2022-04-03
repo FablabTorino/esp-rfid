@@ -19,6 +19,10 @@ struct Config {
     int lockType[MAX_NUM_RELAYS];
     uint8_t maxOpenDoorTime = 0;
     int mqttEnabled = 0;
+    int preset1Enabled = 0;
+    int preset2Enabled = 0;
+    int preset3Enabled = 0;
+    int preset4Enabled = 0;
     bool mqttEvents = false;	  // Sends events over MQTT disables SPIFFS file logging
     bool mqttHA = false; // Sends events over simple MQTT topics and AutoDiscovery
     char *mqttHost = NULL;

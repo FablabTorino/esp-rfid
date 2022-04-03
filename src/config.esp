@@ -30,6 +30,10 @@ bool ICACHE_FLASH_ATTR loadConfiguration(Config &config)
 	JsonObject general = json["general"];
 	JsonObject mqtt = json["mqtt"];
 	JsonObject ntp = json["ntp"];
+	JsonObject preset1 = json["preset1"];
+	JsonObject preset2 = json["preset2"];
+	JsonObject preset3 = json["preset3"];
+	JsonObject preset4 = json["preset4"];
 #ifdef DEBUG
 	Serial.println(F("[ INFO ] Trying to setup RFID Hardware"));
 #endif
@@ -310,6 +314,7 @@ bool ICACHE_FLASH_ATTR loadConfiguration(Config &config)
 #endif
 		connectToMqtt();
 	}
+	
 #ifdef DEBUG
 	Serial.println(F("[ INFO ] Configuration done."));
 #endif

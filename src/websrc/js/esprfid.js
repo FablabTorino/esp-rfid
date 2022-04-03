@@ -77,10 +77,145 @@ var config = {
         "interval": 30,
         "timezone": 0
     },
-    "standardaccess": {
-          "server": "pool.ntp.org",
-          "interval": 30,
-          "timezone": 0
+    "preset1": {
+          "name": "Preset1",
+          "enabled": 0,
+          "monday": 0,
+          "tuesday": 0,
+          "wednesday": 0,
+          "thursday": 0,
+          "friday": 0,
+          "saturday": 0,
+          "sunday": 0,
+          "h00": 0,
+          "h01": 0,
+          "h02": 0,
+          "h03": 0,
+          "h04": 0,
+          "h05": 0,
+          "h06": 0,
+          "h07": 0,
+          "h08": 0,
+          "h09": 0,
+          "h10": 0,
+          "h11": 0,
+          "h12": 0,
+          "h13": 0,
+          "h14": 0,
+          "h15": 0,
+          "h16": 0,
+          "h17": 0,
+          "h18": 0,
+          "h19": 0,
+          "h20": 0,
+          "h21": 0,
+          "h22": 0,
+          "h23": 0
+    },
+    "preset2": {
+      "name": "Preset2",
+      "enabled": 0,
+      "monday": 0,
+      "tuesday": 0,
+      "wednesday": 0,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
+      "sunday": 0,
+      "h00": 0,
+      "h01": 0,
+      "h02": 0,
+      "h03": 0,
+      "h04": 0,
+      "h05": 0,
+      "h06": 0,
+      "h07": 0,
+      "h08": 0,
+      "h09": 0,
+      "h10": 0,
+      "h11": 0,
+      "h12": 0,
+      "h13": 0,
+      "h14": 0,
+      "h15": 0,
+      "h16": 0,
+      "h17": 0,
+      "h18": 0,
+      "h19": 0,
+      "h20": 0,
+      "h21": 0,
+      "h22": 0,
+      "h23": 0
+    },
+    "preset3": {
+      "name": "Preset3",
+      "enabled": 0,
+      "monday": 0,
+      "tuesday": 0,
+      "wednesday": 0,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
+      "sunday": 0,
+      "h00": 0,
+      "h01": 0,
+      "h02": 0,
+      "h03": 0,
+      "h04": 0,
+      "h05": 0,
+      "h06": 0,
+      "h07": 0,
+      "h08": 0,
+      "h09": 0,
+      "h10": 0,
+      "h11": 0,
+      "h12": 0,
+      "h13": 0,
+      "h14": 0,
+      "h15": 0,
+      "h16": 0,
+      "h17": 0,
+      "h18": 0,
+      "h19": 0,
+      "h20": 0,
+      "h21": 0,
+      "h22": 0,
+      "h23": 0
+    },
+    "preset4": {
+      "name": "Preset4",
+      "enabled": 0,
+      "monday": 0,
+      "tuesday": 0,
+      "wednesday": 0,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
+      "sunday": 0,
+      "h00": 0,
+      "h01": 0,
+      "h02": 0,
+      "h03": 0,
+      "h04": 0,
+      "h05": 0,
+      "h06": 0,
+      "h07": 0,
+      "h08": 0,
+      "h09": 0,
+      "h10": 0,
+      "h11": 0,
+      "h12": 0,
+      "h13": 0,
+      "h14": 0,
+      "h15": 0,
+      "h16": 0,
+      "h17": 0,
+      "h18": 0,
+      "h19": 0,
+      "h20": 0,
+      "h21": 0,
+      "h22": 0,
+      "h23": 0
     }
 };
 
@@ -216,6 +351,141 @@ function listntp() {
   deviceTime();
 }
 
+function listpreset() {
+  document.getElementById("preset1enabled").value = config.preset1.enabled;
+  document.getElementById("preset1name").value = config.preset1.name;
+  document.getElementById("p1d1").value = config.preset1.monday;
+  document.getElementById("p1d2").value = config.preset1.tuesday;
+  document.getElementById("p1d3").value =config.preset1.wednesday;
+  document.getElementById("p1d4").value = config.preset1.thursday;
+  document.getElementById("p1d5").value = config.preset1.friday;
+  document.getElementById("p1d6").value = config.preset1.saturday;
+  document.getElementById("p1d7").value = config.preset1.sunday;
+  document.getElementById("p1h0").value = config.preset1.h00;
+  document.getElementById("p1h1").value = config.preset1.h01;
+  document.getElementById("p1h2").value = config.preset1.h02;
+  document.getElementById("p1h3").value = config.preset1.h03;
+  document.getElementById("p1h4").value = config.preset1.h04;
+  document.getElementById("p1h5").value = config.preset1.h05;
+  document.getElementById("p1h6").value = config.preset1.h06;
+  document.getElementById("p1h7").value = config.preset1.h07;
+  document.getElementById("p1h8").value = config.preset1.h08;
+  document.getElementById("p1h9").value = config.preset1.h09;
+  document.getElementById("p1h10").value = config.preset1.h10;
+  document.getElementById("p1h11").value = config.preset1.h11;
+  document.getElementById("p1h12").value = config.preset1.h12;
+  document.getElementById("p1h13").value = config.preset1.h13;
+  document.getElementById("p1h14").value = config.preset1.h14;
+  document.getElementById("p1h15").value = config.preset1.h15;
+  document.getElementById("p1h16").value = config.preset1.h16;
+  document.getElementById("p1h17").value = config.preset1.h17;
+  document.getElementById("p1h18").value = config.preset1.h18;
+  document.getElementById("p1h19").value = config.preset1.h19;
+  document.getElementById("p1h20").value = config.preset1.h20;
+  document.getElementById("p1h21").value = config.preset1.h21;
+  document.getElementById("p1h22").value = config.preset1.h22;
+  document.getElementById("p1h23").value = config.preset1.h23;
+  document.getElementById("preset2enabled").value = config.preset2.enabled;
+  document.getElementById("preset2name").value = config.preset2.name;
+  document.getElementById("p2d1").value = config.preset2.monday;
+  document.getElementById("p2d2").value = config.preset2.tuesday;
+  document.getElementById("p2d3").value =config.preset2.wednesday;
+  document.getElementById("p2d4").value = config.preset2.thursday;
+  document.getElementById("p2d5").value = config.preset2.friday;
+  document.getElementById("p2d6").value = config.preset2.saturday;
+  document.getElementById("p2d7").value = config.preset2.sunday;
+  document.getElementById("p2h0").value = config.preset2.h00;
+  document.getElementById("p2h1").value = config.preset2.h01;
+  document.getElementById("p2h2").value = config.preset2.h02;
+  document.getElementById("p2h3").value = config.preset2.h03;
+  document.getElementById("p2h4").value = config.preset2.h04;
+  document.getElementById("p2h5").value = config.preset2.h05;
+  document.getElementById("p2h6").value = config.preset2.h06;
+  document.getElementById("p2h7").value = config.preset2.h07;
+  document.getElementById("p2h8").value = config.preset2.h08;
+  document.getElementById("p2h9").value = config.preset2.h09;
+  document.getElementById("p2h10").value = config.preset2.h10;
+  document.getElementById("p2h11").value = config.preset2.h11;
+  document.getElementById("p2h12").value = config.preset2.h12;
+  document.getElementById("p2h13").value = config.preset2.h13;
+  document.getElementById("p2h14").value = config.preset2.h14;
+  document.getElementById("p2h15").value = config.preset2.h15;
+  document.getElementById("p2h16").value = config.preset2.h16;
+  document.getElementById("p2h17").value = config.preset2.h17;
+  document.getElementById("p2h18").value = config.preset2.h18;
+  document.getElementById("p2h19").value = config.preset2.h19;
+  document.getElementById("p2h20").value = config.preset2.h20;
+  document.getElementById("p2h21").value = config.preset2.h21;
+  document.getElementById("p2h22").value = config.preset2.h22;
+  document.getElementById("p2h23").value = config.preset2.h23;
+  document.getElementById("preset3enabled").value = config.preset3.enabled;
+  document.getElementById("preset3name").value = config.preset3.name;
+  document.getElementById("p3d1").value = config.preset3.monday;
+  document.getElementById("p3d2").value = config.preset3.tuesday;
+  document.getElementById("p3d3").value =config.preset3.wednesday;
+  document.getElementById("p3d4").value = config.preset3.thursday;
+  document.getElementById("p3d5").value = config.preset3.friday;
+  document.getElementById("p3d6").value = config.preset3.saturday;
+  document.getElementById("p3d7").value = config.preset3.sunday;
+  document.getElementById("p3h0").value = config.preset3.h00;
+  document.getElementById("p3h1").value = config.preset3.h01;
+  document.getElementById("p3h2").value = config.preset3.h02;
+  document.getElementById("p3h3").value = config.preset3.h03;
+  document.getElementById("p3h4").value = config.preset3.h04;
+  document.getElementById("p3h5").value = config.preset3.h05;
+  document.getElementById("p3h6").value = config.preset3.h06;
+  document.getElementById("p3h7").value = config.preset3.h07;
+  document.getElementById("p3h8").value = config.preset3.h08;
+  document.getElementById("p3h9").value = config.preset3.h09;
+  document.getElementById("p3h10").value = config.preset3.h10;
+  document.getElementById("p3h11").value = config.preset3.h11;
+  document.getElementById("p3h12").value = config.preset3.h12;
+  document.getElementById("p3h13").value = config.preset3.h13;
+  document.getElementById("p3h14").value = config.preset3.h14;
+  document.getElementById("p3h15").value = config.preset3.h15;
+  document.getElementById("p3h16").value = config.preset3.h16;
+  document.getElementById("p3h17").value = config.preset3.h17;
+  document.getElementById("p3h18").value = config.preset3.h18;
+  document.getElementById("p3h19").value = config.preset3.h19;
+  document.getElementById("p3h20").value = config.preset3.h20;
+  document.getElementById("p3h21").value = config.preset3.h21;
+  document.getElementById("p3h22").value = config.preset3.h22;
+  document.getElementById("p3h23").value = config.preset3.h23;
+  document.getElementById("preset4enabled").value = config.preset4.enabled;
+  document.getElementById("preset4name").value = config.preset4.name;
+  document.getElementById("p4d1").value = config.preset4.monday;
+  document.getElementById("p4d2").value = config.preset4.tuesday;
+  document.getElementById("p4d3").value =config.preset4.wednesday;
+  document.getElementById("p4d4").value = config.preset4.thursday;
+  document.getElementById("p4d5").value = config.preset4.friday;
+  document.getElementById("p4d6").value = config.preset4.saturday;
+  document.getElementById("p4d7").value = config.preset4.sunday;
+  document.getElementById("p4h0").value = config.preset4.h00;
+  document.getElementById("p4h1").value = config.preset4.h01;
+  document.getElementById("p4h2").value = config.preset4.h02;
+  document.getElementById("p4h3").value = config.preset4.h03;
+  document.getElementById("p4h4").value = config.preset4.h04;
+  document.getElementById("p4h5").value = config.preset4.h05;
+  document.getElementById("p4h6").value = config.preset4.h06;
+  document.getElementById("p4h7").value = config.preset4.h07;
+  document.getElementById("p4h8").value = config.preset4.h08;
+  document.getElementById("p4h9").value = config.preset4.h09;
+  document.getElementById("p4h10").value = config.preset4.h10;
+  document.getElementById("p4h11").value = config.preset4.h11;
+  document.getElementById("p4h12").value = config.preset4.h12;
+  document.getElementById("p4h13").value = config.preset4.h13;
+  document.getElementById("p4h14").value = config.preset4.h14;
+  document.getElementById("p4h15").value = config.preset4.h15;
+  document.getElementById("p4h16").value = config.preset4.h16;
+  document.getElementById("p4h17").value = config.preset4.h17;
+  document.getElementById("p4h18").value = config.preset4.h18;
+  document.getElementById("p4h19").value = config.preset4.h19;
+  document.getElementById("p4h20").value = config.preset4.h20;
+  document.getElementById("p4h21").value = config.preset4.h21;
+  document.getElementById("p4h22").value = config.preset4.h22;
+  document.getElementById("p4h23").value = config.preset4.h23;
+ }
+
 function revcommit() {
   document.getElementById("jsonholder").innerText = JSON.stringify(config, null, 2);
   $("#revcommit").modal("show");
@@ -314,6 +584,166 @@ function savemqtt() {
         config.mqtt.mqttha = 0;
     } 
     uncommited();
+}
+
+function savepresets() {
+  config.preset1.enabled = 0;
+  config.preset2.enabled = 0;
+  config.preset3.enabled = 0;
+  config.preset4.enabled = 0;
+  if (parseInt($("input[name=\"preset1enabled\"]:checked").val()) === 1) {
+    config.preset1.enabled = 1;
+  }
+  else{
+    config.preset1.enabled = 0;
+  }
+  if (parseInt($("input[name=\"preset2enabled\"]:checked").val()) === 1) {
+    config.preset2.enabled = 1;
+  }
+  else{
+    config.preset2.enabled = 0;
+  } 
+  if (parseInt($("input[name=\"preset3enabled\"]:checked").val()) === 1) {
+    config.preset3.enabled = 1;
+  }
+  else{
+    config.preset3.enabled = 0;
+  }
+  if (parseInt($("input[name=\"preset4enabled\"]:checked").val()) === 1) {
+    config.preset4.enabled = 1;
+  }
+  else{
+    config.preset4.enabled = 0;
+  } 
+  config.preset1.name = document.getElementById("preset1name").value;
+  config.preset1.monday = parseInt(document.getElementById("p1d1").value);
+  config.preset1.tuesday = parseInt(document.getElementById("p1d2").value);
+  config.preset1.wednesday = parseInt(document.getElementById("p1d3").value);
+  config.preset1.thursday = parseInt(document.getElementById("p1d4").value);
+  config.preset1.friday = parseInt(document.getElementById("p1d5").value);
+  config.preset1.saturday = parseInt(document.getElementById("p1d6").value);
+  config.preset1.sunday = parseInt(document.getElementById("p1d7").value);
+  config.preset1.h00 = parseInt(document.getElementById("p1h0").value);
+  config.preset1.h01 = parseInt(document.getElementById("p1h1").value);
+  config.preset1.h02 = parseInt(document.getElementById("p1h2").value);
+  config.preset1.h03 = parseInt(document.getElementById("p1h3").value);
+  config.preset1.h04 = parseInt(document.getElementById("p1h4").value);
+  config.preset1.h05 = parseInt(document.getElementById("p1h5").value);
+  config.preset1.h06 = parseInt(document.getElementById("p1h6").value);
+  config.preset1.h07 = parseInt(document.getElementById("p1h7").value);
+  config.preset1.h08 = parseInt(document.getElementById("p1h8").value);
+  config.preset1.h09 = parseInt(document.getElementById("p1h9").value);
+  config.preset1.h10 = parseInt(document.getElementById("p1h10").value);
+  config.preset1.h11 = parseInt(document.getElementById("p1h11").value);
+  config.preset1.h12 = parseInt(document.getElementById("p1h12").value);
+  config.preset1.h13 = parseInt(document.getElementById("p1h13").value);
+  config.preset1.h14 = parseInt(document.getElementById("p1h14").value);
+  config.preset1.h15 = parseInt(document.getElementById("p1h15").value);
+  config.preset1.h16 = parseInt(document.getElementById("p1h16").value);
+  config.preset1.h17 = parseInt(document.getElementById("p1h17").value);
+  config.preset1.h18 = parseInt(document.getElementById("p1h18").value);
+  config.preset1.h19 = parseInt(document.getElementById("p1h19").value);
+  config.preset1.h20 = parseInt(document.getElementById("p1h20").value);
+  config.preset1.h21 = parseInt(document.getElementById("p1h21").value);
+  config.preset1.h22 = parseInt(document.getElementById("p1h22").value);
+  config.preset1.h23 = parseInt(document.getElementById("p1h23").value);
+  config.preset2.name = document.getElementById("preset2name").value;
+  config.preset2.monday = parseInt(document.getElementById("p2d1").value);
+  config.preset2.tuesday = parseInt(document.getElementById("p2d2").value);
+  config.preset2.wednesday = parseInt(document.getElementById("p2d3").value);
+  config.preset2.thursday = parseInt(document.getElementById("p2d4").value);
+  config.preset2.friday = parseInt(document.getElementById("p2d5").value);
+  config.preset2.saturday = parseInt(document.getElementById("p2d6").value);
+  config.preset2.sunday = parseInt(document.getElementById("p2d7").value);
+  config.preset2.h00 = parseInt(document.getElementById("p2h0").value);
+  config.preset2.h01 = parseInt(document.getElementById("p2h1").value);
+  config.preset2.h02 = parseInt(document.getElementById("p2h2").value);
+  config.preset2.h03 = parseInt(document.getElementById("p2h3").value);
+  config.preset2.h04 = parseInt(document.getElementById("p2h4").value);
+  config.preset2.h05 = parseInt(document.getElementById("p2h5").value);
+  config.preset2.h06 = parseInt(document.getElementById("p2h6").value);
+  config.preset2.h07 = parseInt(document.getElementById("p2h7").value);
+  config.preset2.h08 = parseInt(document.getElementById("p2h8").value);
+  config.preset2.h09 = parseInt(document.getElementById("p2h9").value);
+  config.preset2.h10 = parseInt(document.getElementById("p2h10").value);
+  config.preset2.h11 = parseInt(document.getElementById("p2h11").value);
+  config.preset2.h12 = parseInt(document.getElementById("p2h12").value);
+  config.preset2.h13 = parseInt(document.getElementById("p2h13").value);
+  config.preset2.h14 = parseInt(document.getElementById("p2h14").value);
+  config.preset2.h15 = parseInt(document.getElementById("p2h15").value);
+  config.preset2.h16 = parseInt(document.getElementById("p2h16").value);
+  config.preset2.h17 = parseInt(document.getElementById("p2h17").value);
+  config.preset2.h18 = parseInt(document.getElementById("p2h18").value);
+  config.preset2.h19 = parseInt(document.getElementById("p2h19").value);
+  config.preset2.h20 = parseInt(document.getElementById("p2h20").value);
+  config.preset2.h21 = parseInt(document.getElementById("p2h21").value);
+  config.preset2.h22 = parseInt(document.getElementById("p2h22").value);
+  config.preset2.h23 = parseInt(document.getElementById("p2h23").value);
+  config.preset3.name = document.getElementById("preset3name").value;
+  config.preset3.monday = parseInt(document.getElementById("p3d1").value);
+  config.preset3.tuesday = parseInt(document.getElementById("p3d2").value);
+  config.preset3.wednesday = parseInt(document.getElementById("p3d3").value);
+  config.preset3.thursday = parseInt(document.getElementById("p3d4").value);
+  config.preset3.friday = parseInt(document.getElementById("p3d5").value);
+  config.preset3.saturday = parseInt(document.getElementById("p3d6").value);
+  config.preset3.sunday = parseInt(document.getElementById("p3d7").value);
+  config.preset3.h00 = parseInt(document.getElementById("p3h0").value);
+  config.preset3.h01 = parseInt(document.getElementById("p3h1").value);
+  config.preset3.h02 = parseInt(document.getElementById("p3h2").value);
+  config.preset3.h03 = parseInt(document.getElementById("p3h3").value);
+  config.preset3.h04 = parseInt(document.getElementById("p3h4").value);
+  config.preset3.h05 = parseInt(document.getElementById("p3h5").value);
+  config.preset3.h06 = parseInt(document.getElementById("p3h6").value);
+  config.preset3.h07 = parseInt(document.getElementById("p3h7").value);
+  config.preset3.h08 = parseInt(document.getElementById("p3h8").value);
+  config.preset3.h09 = parseInt(document.getElementById("p3h9").value);
+  config.preset3.h10 = parseInt(document.getElementById("p3h10").value);
+  config.preset3.h11 = parseInt(document.getElementById("p3h11").value);
+  config.preset3.h12 = parseInt(document.getElementById("p3h12").value);
+  config.preset3.h13 = parseInt(document.getElementById("p3h13").value);
+  config.preset3.h14 = parseInt(document.getElementById("p3h14").value);
+  config.preset3.h15 = parseInt(document.getElementById("p3h15").value);
+  config.preset3.h16 = parseInt(document.getElementById("p3h16").value);
+  config.preset3.h17 = parseInt(document.getElementById("p3h17").value);
+  config.preset3.h18 = parseInt(document.getElementById("p3h18").value);
+  config.preset3.h19 = parseInt(document.getElementById("p3h19").value);
+  config.preset3.h20 = parseInt(document.getElementById("p3h20").value);
+  config.preset3.h21 = parseInt(document.getElementById("p3h21").value);
+  config.preset3.h22 = parseInt(document.getElementById("p3h22").value);
+  config.preset3.h23 = parseInt(document.getElementById("p3h23").value);
+  config.preset4.name = document.getElementById("preset4name").value;
+  config.preset4.monday = parseInt(document.getElementById("p4d1").value);
+  config.preset4.tuesday = parseInt(document.getElementById("p4d2").value);
+  config.preset4.wednesday = parseInt(document.getElementById("p4d3").value);
+  config.preset4.thursday = parseInt(document.getElementById("p4d4").value);
+  config.preset4.friday = parseInt(document.getElementById("p4d5").value);
+  config.preset4.saturday = parseInt(document.getElementById("p4d6").value);
+  config.preset4.sunday = parseInt(document.getElementById("p4d7").value);
+  config.preset4.h00 = parseInt(document.getElementById("p4h0").value);
+  config.preset4.h01 = parseInt(document.getElementById("p4h1").value);
+  config.preset4.h02 = parseInt(document.getElementById("p4h2").value);
+  config.preset4.h03 = parseInt(document.getElementById("p4h3").value);
+  config.preset4.h04 = parseInt(document.getElementById("p4h4").value);
+  config.preset4.h05 = parseInt(document.getElementById("p4h5").value);
+  config.preset4.h06 = parseInt(document.getElementById("p4h6").value);
+  config.preset4.h07 = parseInt(document.getElementById("p4h7").value);
+  config.preset4.h08 = parseInt(document.getElementById("p4h8").value);
+  config.preset4.h09 = parseInt(document.getElementById("p4h9").value);
+  config.preset4.h10 = parseInt(document.getElementById("p4h10").value);
+  config.preset4.h11 = parseInt(document.getElementById("p4h11").value);
+  config.preset4.h12 = parseInt(document.getElementById("p4h12").value);
+  config.preset4.h13 = parseInt(document.getElementById("p4h13").value);
+  config.preset4.h14 = parseInt(document.getElementById("p4h14").value);
+  config.preset4.h15 = parseInt(document.getElementById("p4h15").value);
+  config.preset4.h16 = parseInt(document.getElementById("p4h16").value);
+  config.preset4.h17 = parseInt(document.getElementById("p4h17").value);
+  config.preset4.h18 = parseInt(document.getElementById("p4h18").value);
+  config.preset4.h19 = parseInt(document.getElementById("p4h19").value);
+  config.preset4.h20 = parseInt(document.getElementById("p4h20").value);
+  config.preset4.h21 = parseInt(document.getElementById("p4h21").value);
+  config.preset4.h22 = parseInt(document.getElementById("p4h22").value);
+  config.preset4.h23 = parseInt(document.getElementById("p4h23").value);
+  uncommited();
 }
 
 function checkOctects(input) {
@@ -495,6 +925,22 @@ function Preset2() {
   } else {
     $("#preset2").slideDown();
     $("#preset2").show();
+  }
+}
+function Preset3() {
+  if (document.querySelector("input[name=\"preset3enabled\"]:checked").value === "0") {
+    $("#preset3").slideUp();
+  } else {
+    $("#preset3").slideDown();
+    $("#preset3").show();
+  }
+}
+function Preset4() {
+  if (document.querySelector("input[name=\"preset4enabled\"]:checked").value === "0") {
+    $("#preset4").slideUp();
+  } else {
+    $("#preset4").slideDown();
+    $("#preset4").show();
   }
 }
 
@@ -790,8 +1236,8 @@ function getContent(contentname) {
         case "#networkcontent":
           listnetwork();
           break;
-        case "#accessstandards":
-          access_standards();
+        case "#presetcontent":
+          listpreset();
           break;
         case "#logcontent":
           page = 1;
@@ -802,8 +1248,6 @@ function getContent(contentname) {
           page = 1;
           data = [];
           getUsers();
-          break;
-        case "#acctypecontent":
           break;
         case "#eventcontent":
           page = 1;
@@ -1799,8 +2243,8 @@ $("#network").on("click", (function() {
   getContent("#networkcontent");
   return false;
 }));
-$("#accesstime").on("click", (function() {
-  getContent("#accessstandards");
+$("#presets").on("click", (function() {
+  getContent("#presetcontent");
   return false;
 }));
 $("#hardware").click(function() {
@@ -1821,9 +2265,6 @@ $("#ntp").click(function() {
 });
 $("#users").click(function() {
   getContent("#userscontent");
-});
-$("#acctype").click(function() {
-  getContent("#acctypecontent");
 });
 $("#latestlog").click(function() {
   theCurrentLogFile="/latestlog.json";
