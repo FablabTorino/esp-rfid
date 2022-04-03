@@ -635,6 +635,4 @@ void setupMqtt()
 	mqttClient.onSubscribe(onMqttSubscribe);
 	mqttClient.onConnect(onMqttConnect);
 	mqttClient.onMessage(onMqttMessage);
-
-	connectToMqtt();
 }

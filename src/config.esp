@@ -53,8 +53,6 @@ bool ICACHE_FLASH_ATTR loadConfiguration(Config &config)
 	if (hardware.containsKey("maxOpenDoorTime"))
 	{
 		config.maxOpenDoorTime = hardware["maxOpenDoorTime"];
-		Serial.print("maxOpenDoorTime = ");
-		Serial.println(config.maxOpenDoorTime);
 	}
 
 	if (hardware.containsKey("doorbellpin"))

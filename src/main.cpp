@@ -186,8 +186,9 @@ void ICACHE_FLASH_ATTR setup()
 
 	bool configured = false;
 	configured = loadConfiguration(config);
-	setupWifi(configured);
+	setupMqtt();
 	setupWebServer();
+	setupWifi(configured);
 	writeEvent("INFO", "sys", "System setup completed, running", "");
 }
 
@@ -208,6 +209,7 @@ void ICACHE_RAM_ATTR loop()
 
 	ledWifiStatus();
 	ledAccessDeniedOff();
+	beeperBeep();
 	doorStatus();
 	doorbellStatus();
 
