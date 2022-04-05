@@ -8,12 +8,12 @@ void onWifiDisconnect(const WiFiEventStationModeDisconnected &event)
 #ifdef DEBUG
 	Serial.println(F("[ INFO ] WiFi STA Disconnected"));
 #endif
+	ledWifiOff();
 	mqttReconnectTimer.detach();
 	if (!wifiReconnectTimer.active() && !config.fallbackMode)
 	{
 		wifiReconnectTimer.once(300, setEnableWifi);
 	}
-	ledWifiOff();
 }
 
 void onWifiGotIP(const WiFiEventStationModeGotIP &event)
