@@ -113,7 +113,6 @@ unsigned long openDoorMillis = 0;
 unsigned long previousLoopMillis = 0;
 unsigned long previousMillis = 0;
 bool shouldReboot = false;
-bool timerequest = false;
 unsigned long uptime = 0;
 unsigned long wifiPinBlink = millis();
 unsigned long wiFiUptimeMillis = 0;
@@ -302,12 +301,6 @@ void ICACHE_RAM_ATTR loop()
 		ESP.restart();
 	}
 
-	if (timerequest)
-	{
-		timerequest = false;
-		sendTime();
-	}
-
 	if (config.autoRestartIntervalSeconds > 0 && uptime > config.autoRestartIntervalSeconds * 1000)
 	{
 		writeEvent("WARN", "sys", "Auto restarting...", "");
@@ -331,7 +324,8 @@ void ICACHE_RAM_ATTR loop()
 		disableWifi();
 	}
 
-	if (doEnableWifi == true)
+	// don't try connecting to WiFi when waiting for pincode
+	if (doEnableWifi == true && keyTimer == 0)
 	{
 		writeEvent("INFO", "wifi", "Enabling WiFi", "");
 		doEnableWifi = false;
