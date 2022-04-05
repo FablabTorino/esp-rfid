@@ -328,6 +328,7 @@ void ICACHE_RAM_ATTR loop()
 	if (config.wifiTimeout > 0 && wiFiUptimeMillis > (config.wifiTimeout * 1000) && WiFi.isConnected())
 	{
 		writeEvent("INFO", "wifi", "WiFi is going to be disabled", "");
+		wiFiUptimeMillis = 0;
 		disableWifi();
 	}
 
